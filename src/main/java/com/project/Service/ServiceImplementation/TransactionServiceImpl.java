@@ -1,7 +1,9 @@
 package com.project.Service.ServiceImplementation;
 
 import com.project.Dto.RequestDto.TransactionIssueBookDto;
+import com.project.Dto.RequestDto.TransactionReturnBookRequestDto;
 import com.project.Dto.ResponseDto.TransactionIssueBookResponseDto;
+import com.project.Dto.ResponseDto.TransactionReturnBookResponseDto;
 import com.project.Entity.Book;
 import com.project.Entity.Card;
 import com.project.Entity.Transaction;
@@ -115,5 +117,54 @@ public class TransactionServiceImpl implements TransactionService {
         );
 
         return transactionIssueBookResponseDto;
+    }
+
+    @Override
+    public TransactionReturnBookResponseDto returnBook(TransactionReturnBookRequestDto transactionReturnBookRequestDto) throws Exception {
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionNumber(String.valueOf(UUID.randomUUID()));
+        transaction.setIssueOperation(false);
+        Card card;
+        try{
+            card = cardRepository.findById(transactionReturnBookRequestDto.getCardId()).get();
+        }catch(Exception e){
+
+            transaction.setTransactionStatus(TransactionStatus.FAILED);
+            throw new CardNotFoundException("Card is Invalid");
+
+        }
+
+        Book book;
+        try{
+            book = bookRepository.findById(transactionReturnBookRequestDto.getBookId()).get();
+
+        }catch(Exception e){
+
+            transaction.setTransactionStatus(TransactionStatus.FAILED);
+            throw new BookNotFoundException("Invalid book id");
+
+        }
+
+        if(!book.getCard().equals(card)){
+
+            transaction.setTransactionStatus(TransactionStatus.FAILED);
+            throw new Exception("Card and book issued not match!!");
+        }
+
+        book.setCard(null);
+        book.setIssued(false);
+        transaction.setCard(card);
+        transaction.setBook(book);
+        transaction.setTransactionStatus(TransactionStatus.SUCCESS);
+
+        cardRepository.save(card);
+        transactionRepository.save(transaction);
+        TransactionReturnBookResponseDto transactionReturnBookResponseDto = new TransactionReturnBookResponseDto(
+                book.getTitle(),
+                transaction.getTransactionNumber()
+        );
+
+        return transactionReturnBookResponseDto;
     }
 }

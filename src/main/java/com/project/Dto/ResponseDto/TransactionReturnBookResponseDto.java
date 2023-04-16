@@ -1,6 +1,5 @@
 package com.project.Dto.ResponseDto;
 
-import com.project.Enums.TransactionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TransactionIssueBookResponseDto {
-
-    private String transactionNumber;
-
-    private TransactionStatus transactionStatus;
+public class TransactionReturnBookResponseDto {
 
     private String bookTitle;
-
-
+    private String transactionId;
 }
