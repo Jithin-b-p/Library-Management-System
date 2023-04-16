@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateStudentMobRequestDto {
+public class StudentUpdateMobRequestDto {
 
     private int id;
 

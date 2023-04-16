@@ -1,6 +1,7 @@
 package com.project.Entity;
 
 import com.project.Enums.Department;
+import com.project.Enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class Student {
     private int id;
 
     private String name;
+
+    private Gender gender;
 
     private int age;
 

@@ -1,4 +1,4 @@
-package com.project.Dto.ResponseDto;
+package com.project.Dto.RequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateStudentMobResponseDto {
+public class TransactionIssueBookDto {
 
-    private String name;
+    private int cardId;
 
-    private String mobNo;
+    private int bookId;
 }

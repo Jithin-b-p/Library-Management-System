@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "book")
 @NoArgsConstructor
@@ -29,7 +32,16 @@ public class Book {
 
     private int price;
 
+    private boolean issued = false;
+
     @ManyToOne
     @JoinColumn
     Author author;
+
+    @ManyToOne
+    @JoinColumn
+    Card card;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    List<Transaction> transactionList = new ArrayList<>();
 }

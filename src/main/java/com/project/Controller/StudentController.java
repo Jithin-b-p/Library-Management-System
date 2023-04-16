@@ -1,11 +1,9 @@
 package com.project.Controller;
 
-import com.project.Dto.RequestDto.StudentDeleteRequestDto;
-import com.project.Dto.RequestDto.StudentGetRequestDto;
-import com.project.Dto.RequestDto.StudentRequestDto;
-import com.project.Dto.RequestDto.UpdateStudentMobRequestDto;
+import com.project.Dto.RequestDto.*;
+import com.project.Dto.ResponseDto.StudentGetByEmailResponseDto;
 import com.project.Dto.ResponseDto.StudentGetResponseDto;
-import com.project.Dto.ResponseDto.UpdateStudentMobResponseDto;
+import com.project.Dto.ResponseDto.StudentUpdateMobResponseDto;
 import com.project.Entity.Student;
 import com.project.Exceptions.StudentNotFoundException;
 import com.project.Service.StudentService;
@@ -41,10 +39,10 @@ public class StudentController {
 
     //update mobile no of a student REST API.
     @PutMapping("/update-mobNo")
-    public ResponseEntity<UpdateStudentMobResponseDto> updateMobNo(@RequestBody UpdateStudentMobRequestDto updateStudentMobRequestDto) throws StudentNotFoundException {
+    public ResponseEntity<StudentUpdateMobResponseDto> updateMobNo(@RequestBody StudentUpdateMobRequestDto studentUpdateMobRequestDto) throws StudentNotFoundException {
 
-        UpdateStudentMobResponseDto updateStudentMobResponseDto = studentService.updateMobNo(updateStudentMobRequestDto);
-        return new ResponseEntity<>(updateStudentMobResponseDto, HttpStatus.OK);
+        StudentUpdateMobResponseDto studentUpdateMobResponseDto = studentService.updateMobNo(studentUpdateMobRequestDto);
+        return new ResponseEntity<>(studentUpdateMobResponseDto, HttpStatus.OK);
 
     }
 
@@ -57,12 +55,21 @@ public class StudentController {
 
     }
 
-    //find student by id.
+    //find student by id REST API.
     @GetMapping("/get-student")
     public ResponseEntity<StudentGetResponseDto> getStudent(@RequestBody StudentGetRequestDto studentGetRequestDto) throws StudentNotFoundException {
 
         StudentGetResponseDto getStudent = studentService.getStudent(studentGetRequestDto);
         return new ResponseEntity<>(getStudent, HttpStatus.OK);
+
+    }
+
+    //create a REST API to get student by Email.
+    @GetMapping("/get-student-byEmail")
+    public ResponseEntity<StudentGetByEmailResponseDto> getStudentByEmail(@RequestBody StudentGetByEmailRequestDto studentGetByEmailRequestDto) throws StudentNotFoundException {
+
+        StudentGetByEmailResponseDto studentGetByEmailResponseDto = studentService.getStudentByEmail(studentGetByEmailRequestDto);
+        return new ResponseEntity<>(studentGetByEmailResponseDto, HttpStatus.OK);
 
     }
 

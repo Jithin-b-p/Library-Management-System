@@ -1,11 +1,9 @@
 package com.project.Service.ServiceImplementation;
 
-import com.project.Dto.RequestDto.StudentDeleteRequestDto;
-import com.project.Dto.RequestDto.StudentGetRequestDto;
-import com.project.Dto.RequestDto.StudentRequestDto;
-import com.project.Dto.RequestDto.UpdateStudentMobRequestDto;
+import com.project.Dto.RequestDto.*;
+import com.project.Dto.ResponseDto.StudentGetByEmailResponseDto;
 import com.project.Dto.ResponseDto.StudentGetResponseDto;
-import com.project.Dto.ResponseDto.UpdateStudentMobResponseDto;
+import com.project.Dto.ResponseDto.StudentUpdateMobResponseDto;
 import com.project.Entity.Card;
 import com.project.Entity.Student;
 import com.project.Enums.CardStatus;
@@ -66,22 +64,22 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public UpdateStudentMobResponseDto updateMobNo(UpdateStudentMobRequestDto updateStudentMobRequestDto) throws StudentNotFoundException {
+    public StudentUpdateMobResponseDto updateMobNo(StudentUpdateMobRequestDto studentUpdateMobRequestDto) throws StudentNotFoundException {
 
         Student student;
         try{
 
-            student = studentRepository.findById(updateStudentMobRequestDto.getId()).get();
-            student.setMobNo(updateStudentMobRequestDto.getMobNo());
+            student = studentRepository.findById(studentUpdateMobRequestDto.getId()).get();
+            student.setMobNo(studentUpdateMobRequestDto.getMobNo());
             Student updatedStudent = studentRepository.save(student);
 
             //preparing response Dto
-            UpdateStudentMobResponseDto updateStudentMobResponseDto = new UpdateStudentMobResponseDto(
+            StudentUpdateMobResponseDto studentUpdateMobResponseDto = new StudentUpdateMobResponseDto(
                     updatedStudent.getName(),
                     updatedStudent.getMobNo()
             );
 
-            return updateStudentMobResponseDto;
+            return studentUpdateMobResponseDto;
 
         }catch(Exception e){
 
@@ -123,5 +121,28 @@ public class StudentServiceImpl implements StudentService {
         }
 
 
+    }
+
+    @Override
+    public StudentGetByEmailResponseDto getStudentByEmail(StudentGetByEmailRequestDto studentGetByEmailRequestDto) throws StudentNotFoundException {
+
+        Student student;
+        try{
+            student = studentRepository.findByEmail(studentGetByEmailRequestDto.getEmail());
+
+            //prepare the response Dto
+            StudentGetByEmailResponseDto studentGetByEmailResponseDto = new StudentGetByEmailResponseDto(
+                    student.getName(),
+                    student.getAge(),
+                    student.getDepartment(),
+                    student.getMobNo()
+            );
+
+            return studentGetByEmailResponseDto;
+
+        }catch (Exception e){
+
+            throw new StudentNotFoundException("No student with given EmailId");
+        }
     }
 }

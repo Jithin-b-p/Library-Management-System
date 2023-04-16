@@ -11,7 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "card")
@@ -40,4 +42,9 @@ public class Card {
     @JoinColumn
     Student student;
 
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    List<Book> bookList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    List<Transaction> transactionList = new ArrayList<>();
 }
