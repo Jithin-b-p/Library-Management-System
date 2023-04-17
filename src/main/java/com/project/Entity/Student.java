@@ -22,6 +22,7 @@ public class Student {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private int age;
@@ -30,6 +31,8 @@ public class Student {
     private Department department;
 
     private String mobNo;
+
+    private boolean sportsQuota;
 
     @Column(nullable = false, unique = true)
     private String email;

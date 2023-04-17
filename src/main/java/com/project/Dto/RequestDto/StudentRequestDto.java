@@ -1,6 +1,7 @@
 package com.project.Dto.RequestDto;
 
 import com.project.Enums.Department;
+import com.project.Enums.Gender;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -23,4 +24,8 @@ public class StudentRequestDto {
     private String mobNo;
 
     private String email;
+
+    private Gender gender;
+
+    private boolean sportsQuota;
 }
