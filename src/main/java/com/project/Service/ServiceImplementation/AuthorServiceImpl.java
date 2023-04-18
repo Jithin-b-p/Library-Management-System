@@ -1,5 +1,6 @@
 package com.project.Service.ServiceImplementation;
 
+import com.project.Dto.RequestDto.AuthorDeleteRequestDto;
 import com.project.Dto.RequestDto.AuthorRequestDto.AuthorUpdateRequestDto;
 import com.project.Entity.Author;
 import com.project.Exceptions.AuthorNotFoundException;
@@ -40,5 +41,18 @@ public class AuthorServiceImpl implements AuthorService {
         }
 
 
+    }
+
+    @Override
+    public String deleteAuthorById(AuthorDeleteRequestDto authorDeleteRequestDto) {
+
+        authorRepository.deleteById(authorDeleteRequestDto.getAuthorId());
+        return "Deleted author successfully";
+    }
+
+    @Override
+    public String deleteAllAuthor() {
+        authorRepository.deleteAll();
+        return "Successfully deleted all author";
     }
 }

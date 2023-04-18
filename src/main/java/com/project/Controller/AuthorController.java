@@ -1,5 +1,6 @@
 package com.project.Controller;
 
+import com.project.Dto.RequestDto.AuthorDeleteRequestDto;
 import com.project.Dto.RequestDto.AuthorRequestDto.AuthorUpdateRequestDto;
 import com.project.Entity.Author;
 import com.project.Exceptions.AuthorNotFoundException;
@@ -30,6 +31,22 @@ public class AuthorController {
 
         String message = authorService.updateAuthor(authorUpdateRequestDto);
         return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/delete-by-id")
+    public ResponseEntity<String> deleteAuthorById(@RequestBody AuthorDeleteRequestDto authorDeleteRequestDto){
+
+        String response = authorService.deleteAuthorById(authorDeleteRequestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<String> deleteAllAuthor(){
+
+        String response = authorService.deleteAllAuthor();
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 

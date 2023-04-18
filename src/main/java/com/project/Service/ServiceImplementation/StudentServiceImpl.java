@@ -6,6 +6,7 @@ import com.project.Entity.Card;
 import com.project.Entity.Student;
 import com.project.Enums.CardStatus;
 import com.project.Exceptions.StudentNotFoundException;
+import com.project.Repository.CardRepository;
 import com.project.Repository.StudentRepository;
 import com.project.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String deleteStudentById(StudentDeleteRequestDto studentDeleteRequestDto) {
 
+        //deleting student will also delete card because student is the parent of card.
         studentRepository.deleteById(studentDeleteRequestDto.getId());
         return "Student deleted successfully";
     }
@@ -228,8 +230,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String deleteAllStudents() {
-        studentRepository.deleteAll();
 
+        studentRepository.deleteAll();
         return "All students are deleted";
+
     }
 }
